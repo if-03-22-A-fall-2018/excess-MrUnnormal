@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 int main(int argc, char const *argv[]) {
   struct winsize ws;
@@ -15,7 +16,7 @@ int main(int argc, char const *argv[]) {
   FILE* fd = fopen("text.txt", "r");
   if(fd != 0)
   {
-    int end_of_file = 10;
+    bool end_of_file = false;
     do
     {
       for(int o = 0; o < ws.ws_row - 2; o++)
@@ -29,25 +30,14 @@ int main(int argc, char const *argv[]) {
           }
           else
           {
-              end_of_file = -10;
+              end_of_file = true;
           }
         }
-        if(end_of_file == 10)
+        if(!end_of_file)
         { printf("\n"); }
       }
       getchar();
-    } while(end_of_file == 10);
-
-
-    /*char* output;
-    if(fgets(output, 2, fd) == 0)
-    {
-
-    }
-    else
-    {
-      printf("%s", output);
-    }*/
+    } while(!end_of_file);
   }
   else
   {
